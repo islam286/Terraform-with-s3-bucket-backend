@@ -6,16 +6,8 @@ module "vpc" {
 
   azs                 = local.azs
   public_subnets      = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k)]
-  private_subnets = flatten([
-    for az_index, az in local.azs : [
-      "10.0.${az_index + 100}.0/24", # For instances
-    ]
-  ])
-  database_subnets = flatten([
-    for az_index, az in local.azs : [
-      "10.0.${az_index + 200}.0/24", # For instances
-    ]
-  ])
+  private_subnets     = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 100)]
+  database_subnets    = [for k, v in local.azs : cidrsubnet(local.vpc_cidr, 8, k + 200)]
 
   map_public_ip_on_launch = true
   
