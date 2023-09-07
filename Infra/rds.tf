@@ -1,6 +1,6 @@
 resource "aws_db_subnet_group" "example" {
   name       = "example-subnet-group"
-  subnet_ids = module.vpc.database_subnets # Use your VPC module's output for database subnets
+  subnet_ids = module.vpc.database_subnets 
 }
 
 
