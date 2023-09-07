@@ -1,5 +1,5 @@
 resource "aws_instance" "bastion" {
-  ami           = local.ubuntu_ami_id
+  ami           = var.ubuntu_ami_id
   instance_type = "t3.micro"
   
   # Create the instance in one of the private subnets for bastion
@@ -10,4 +10,7 @@ resource "aws_instance" "bastion" {
   # Tags and other instance configuration...
   tags = local.tags
 
+}
+output "bastion_public_dns" {
+  value = aws_instance.bastion.public_dns
 }
